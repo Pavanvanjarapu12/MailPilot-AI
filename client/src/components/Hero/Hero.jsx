@@ -1,4 +1,5 @@
 import { Sparkles, Mail, ShieldCheck, Upload, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 function Hero() {
   return (
@@ -82,19 +83,22 @@ function Hero() {
 
           <div className="mt-10 flex gap-5">
 
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl flex items-center gap-2 shadow-lg transition">
+            <Link
+  to="/signup"
+  className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl flex items-center gap-2 shadow-lg hover:scale-105 transition-all duration-300"
+>
 
               Get Started
 
               <ArrowRight size={20} />
+              </Link>
 
-            </button>
-
-            <button className="border border-slate-300 px-8 py-4 rounded-xl hover:bg-slate-100 transition">
-
-              Live Demo
-
-            </button>
+            <a
+  href="#features"
+  className="border border-slate-300 px-8 py-4 rounded-xl hover:bg-slate-100 transition-all duration-300"
+>
+  Live Demo
+</a>
 
           </div>
 
@@ -246,11 +250,12 @@ function Hero() {
 
               </div>
 
-              <button className="mt-8 w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl">
-
-                Send Email
-
-              </button>
+              <Link
+  to="/login"
+  className="mt-8 w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl flex justify-center transition-all duration-300 hover:scale-105"
+>
+  Send Email
+</Link>
 
             </div>
 
