@@ -3,7 +3,9 @@ import GoogleButton from "../components/Auth/GoogleButton";
 import InputField from "../components/Auth/InputField";
 
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import { loginUser } from "../api/auth";
 
 import {
   FiMail,
@@ -18,8 +20,39 @@ function Login() {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const navigate = useNavigate();
+
+  const onSubmit = async (data) => {
+    try {
+
+      const response = await loginUser(data);
+
+      // Save JWT Token
+      localStorage.setItem(
+        "token",
+        response.data.token
+      );
+
+      // Save User Details
+      localStorage.setItem(
+        "user",
+        JSON.stringify(response.data.user)
+      );
+
+      console.log(response.data);
+
+      // Redirect to Dashboard
+      navigate("/dashboard");
+
+    } catch (error) {
+
+      console.error(error.response?.data);
+
+      alert(
+        error.response?.data?.message || "Login Failed"
+      );
+
+    }
   };
 
   return (
@@ -28,7 +61,6 @@ function Login() {
       subtitle="Login to continue using MailPilot AI"
     >
 
-      {/* Form Starts */}
       <form onSubmit={handleSubmit(onSubmit)}>
 
         <GoogleButton />
@@ -44,38 +76,38 @@ function Login() {
         </div>
 
         <InputField
-  label="Email"
-  type="email"
-  placeholder="Enter your email"
-  icon={FiMail}
-  register={register}
-  name="email"
-  validation={{
-    required: "Email is required",
-    pattern: {
-      value: /^\S+@\S+$/i,
-      message: "Enter a valid email",
-    },
-  }}
-  error={errors.email}
-/>
+          label="Email"
+          type="email"
+          placeholder="Enter your email"
+          icon={FiMail}
+          register={register}
+          name="email"
+          validation={{
+            required: "Email is required",
+            pattern: {
+              value: /^\S+@\S+$/i,
+              message: "Enter a valid email",
+            },
+          }}
+          error={errors.email}
+        />
 
-     <InputField
-  label="Password"
-  type="password"
-  placeholder="Enter your password"
-  icon={FiLock}
-  register={register}
-  name="password"
-  validation={{
-    required: "Password is required",
-    minLength: {
-      value: 8,
-      message: "Password must be at least 8 characters",
-    },
-  }}
-  error={errors.password}
-/>
+        <InputField
+          label="Password"
+          type="password"
+          placeholder="Enter your password"
+          icon={FiLock}
+          register={register}
+          name="password"
+          validation={{
+            required: "Password is required",
+            minLength: {
+              value: 8,
+              message: "Password must be at least 8 characters",
+            },
+          }}
+          error={errors.password}
+        />
 
         {/* Forgot Password */}
         <div className="flex justify-end mb-5">
@@ -109,7 +141,6 @@ function Login() {
         </p>
 
       </form>
-      {/* Form Ends */}
 
     </AuthLayout>
   );
