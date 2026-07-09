@@ -1,8 +1,11 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
+
 const connectDB = require("./config/db");
+
 const authRoutes = require("./routes/authRoutes");
+const contactRoutes = require("./routes/contactRoutes");
 
 // Load Environment Variables
 dotenv.config();
@@ -29,6 +32,9 @@ app.get("/", (req, res) => {
 
 // Authentication Routes
 app.use("/api/auth", authRoutes);
+
+// Contact Routes
+app.use("/api/contacts", contactRoutes);
 
 // ==========================================
 
