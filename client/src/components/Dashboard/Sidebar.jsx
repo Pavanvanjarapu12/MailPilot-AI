@@ -91,6 +91,16 @@ function Sidebar() {
               <span>Settings</span>
             </NavLink>
           </li>
+          
+          <li>
+  <NavLink
+    to="/email-generator"
+    className={menuClass}
+  >
+    <Mail size={20} />
+    <span>AI Email</span>
+  </NavLink>
+</li>
 
         </ul>
 

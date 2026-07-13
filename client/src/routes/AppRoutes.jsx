@@ -8,6 +8,7 @@ import Contacts from "../pages/Contacts";
 import Campaigns from "../pages/Campaigns";
 import History from "../pages/History";
 import Settings from "../pages/Settings";
+import EmailGenerator from "../pages/EmailGenerator";
 
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -66,6 +67,15 @@ function AppRoutes() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+  path="/email-generator"
+  element={
+    <ProtectedRoute>
+      <EmailGenerator />
+    </ProtectedRoute>
+  }
+/>
 
       </Routes>
     </BrowserRouter>
